@@ -1,0 +1,76 @@
+<div>
+  <form action="" #userForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+    <!-- {{userForm.form.valid}} -->
+    <!-- {{userForm.value | json}}
+    <hr>
+    {{userModel | json}}
+    <hr> -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" required pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" #emailIs="ngModel" [class.is-invalid]="emailIs.invalid && emailIs.touched" class="form-control" name="email" [(ngModel)]="userModel.email" placeholder="Email..">
+      <small class="text-danger" [class.d-none]="emailIs.valid || emailIs.untouched">Email is required...</small>
+      <!-- {{emailIs.invalid}}  | {{emailIs.touched}} | {{emailIs.valid}}  | {{emailIs.untouched}} -->
+      <!-- {{emailIs.valid}}  | {{emailIs.untouched}} -->
+    </div>
+
+    <div class="form-group">
+      <label for="tel">Telephone</label>
+      <input type="tel" required pattern="^\d{10}$" #telephoneIs="ngModel" [class.is-invalid]="telephoneIs.invalid && telephoneIs.touched" class="form-control" name="telephone" [(ngModel)]="userModel.telephone" placeholder="Telephone...">
+      <!-- <small class="text-danger" [class.d-none]="telephoneIs.valid || telephoneIs.untouched">Telephone is required and must be 10 digits...</small> -->
+      <!-- {{telephoneIs.errors}} -->
+      <div *ngIf="telephoneIs.errors && (telephoneIs.touched || telephoneIs.valid)">
+        <small class="text-danger" *ngIf="telephoneIs.errors.required">Telephone is required...</small>
+        <small class="text-danger" *ngIf="telephoneIs.errors.pattern">Telephone must 10 digits...</small>
+      </div>
+      <!-- {{telephoneIs.invalid}}  | {{telephoneIs.touched}} -->
+    </div>
+
+    <div class="form-group">
+      <select required [class.is-invalid]="userName.invalid && userName.touched" #userName="ngModel" class="custom-select" name="userName" [(ngModel)]="userModel.userName">
+        <option value="">Select Interested item...</option>
+        <option *ngFor="let item of array">{{item}}</option>
+      </select>
+      <small class="text-danger" [class.d-none]="userName.valid || userName.untouched">Select interested item...</small>
+    </div>
+
+    <div class="md-3">
+      <label for="">Time Preference</label>
+      <div class="form-check">
+        <input class="form-check-input" [class.is-invalid]="timePreference.invalid && timePreference.touched" #timePreference="ngModel" type="radio" name="timePreference" value="morning" [(ngModel)]="userModel.timePreference" required>
+        <label class="form-check-label">Morning (8am-11am)</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" [class.is-invalid]="timePreference.invalid && timePreference.touched" #timePreference="ngModel" type="radio" name="timePreference" value="evening" [(ngModel)]="userModel.timePreference" required>
+        <label class="form-check-label">Evining (5am-8am)</label>
+      </div>
+      <small class="text-danger" [class.d-none]="timePreference.valid || timePreference.untouched">Shift is required...</small>
+    </div>
+
+    <div class="form-check md-3">
+      <input type="checkbox" class="form-check-input" name="subscribe" [(ngModel)]="userModel.subscribe">
+      <label class="form-check-label">Send it to your subscribe...</label>
+    </div>
+
+    <!-- <div ngModelGroup="address">
+      <div class="form-group">
+        <label for="">Street</label>
+        <input type="text" class="form-control" name="street" ngModel>
+      </div>
+      <div class="form-group">
+        <label for="">City</label>
+        <input type="text" class="form-control" name="city" ngModel>
+      </div>
+      <div class="form-group">
+        <label for="">State</label>
+        <input type="text" class="form-control" name="state" ngModel>
+      </div>
+      <div class="form-group">
+        <label for="">State</label>
+        <input type="text" class="form-control" name="postalCode" ngModel>
+      </div>
+    </div> -->
+
+    <button [disabled]="userForm.form.invalid" class="btn btn-primary" type="submit">Submit</button>
+
+  </form>
+</div>
